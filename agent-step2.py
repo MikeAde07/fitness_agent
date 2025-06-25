@@ -21,3 +21,19 @@ class WorkoutPlan(BaseModel) :
 @function_tool
 def get_exercise_info(muscle_group: str) -> str:
     """Get a list of exercises for a specifice muscle group"""
+    exercise_data = {
+        "chest": [
+            "Push-ups: 3 sets of 10-15 reps",
+            "Bench Press: 3 sets of 8-12 reps"
+        ]
+    }
+
+    muscle_group = muscle_group.lower()
+    if muscle_group in exercise_data:
+        exercises = exercise_data[muscle_group]
+        return json.dumps({
+            "muscle_group": muscle_group,
+            "exercises": exercises,
+            "recommendation": f"For {muscle_group} training, complete all exercises with 60-90 seconds rest between sets."
+        })
+    else: return f"Exercise information for {muscle_group} is not available."
